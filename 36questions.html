@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>36 Questions to Fall in Love</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Georgia, serif;
+  background: #13080d;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 28px 16px 48px;
+  background-image: radial-gradient(ellipse at 50% -10%, rgba(140,60,20,0.25) 0%, transparent 55%);
+}
+
+.title-eye {
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: #b8946a; margin-bottom: 8px; font-family: sans-serif; text-align: center;
+}
+.title-main {
+  font-size: clamp(18px,5vw,30px); color: #f0e4d0;
+  line-height: 1.25; text-align: center; margin-bottom: 28px;
+}
+.title-main em { color: #c8a060; font-style: italic; }
+
+/* Scene */
+.scene {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Machine */
+.machine {
+  flex: 1;
+  background: linear-gradient(155deg,#2e1808 0%,#180d04 45%,#0f0802 100%);
+  border-radius: 22px 22px 12px 12px;
+  border: 2.5px solid #7a5a22;
+  box-shadow: 0 0 0 1px #3a2008, inset 0 2px 0 rgba(255,210,100,0.1), 0 24px 70px rgba(0,0,0,0.85);
+  padding: 14px 14px 18px;
+  position: relative;
+}
+
+.chrome-strip {
+  height: 3px; margin: 0 18px 12px;
+  background: linear-gradient(90deg,transparent,#ffe090,#c8a050,#ffe090,transparent);
+  border-radius: 2px; opacity: 0.6;
+}
+
+/* Bulbs */
+.bulbs {
+  display: flex; justify-content: center; gap: 7px; margin-bottom: 12px;
+}
+.bulb {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: #280000;
+  transition: background 0.05s, box-shadow 0.05s;
+}
+.bulb.on-r { background: #ff4433; box-shadow: 0 0 5px #ff4433, 0 0 12px #ff443399; }
+.bulb.on-g { background: #44ff88; box-shadow: 0 0 5px #44ff88, 0 0 12px #44ff8899; }
+.bulb.on-y { background: #ffdd00; box-shadow: 0 0 5px #ffdd00, 0 0 12px #ffdd0099; }
+
+/* Tabs */
+.tabs { display: flex; gap: 3px; margin-bottom: 0; }
+.tab {
+  flex: 1; padding: 6px 2px; text-align: center;
+  font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; border-radius: 5px 5px 0 0;
+  border: 1px solid transparent; border-bottom: none;
+  color: #806040; background: rgba(255,255,255,0.02);
+  font-family: sans-serif; user-select: none; transition: all 0.18s;
+}
+.tab.active {
+  border-color: #7a5a22; color: #ffd080;
+  background: rgba(180,130,50,0.12);
+}
+.tab-sub { font-size: 7px; opacity: 0.7; letter-spacing: 0.5px; margin-top: 1px; }
+
+/* Screen */
+.screen-outer {
+  background: #06080a; border: 2px solid #6a4a18; border-radius: 9px;
+  padding: 3px; box-shadow: inset 0 3px 10px rgba(0,0,0,0.9), 0 0 0 1px #2a1a04;
+  margin-bottom: 12px;
+}
+.screen-inner {
+  background: #060f08; border-radius: 6px;
+  min-height: 155px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 14px 12px; position: relative; overflow: hidden;
+}
+.scanlines {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,100,0.018) 3px,rgba(0,255,100,0.018) 4px);
+}
+.screen-label {
+  font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(0,230,90,0.35); margin-bottom: 10px; font-family: monospace;
+  position: relative; z-index: 1; text-align: center;
+}
+.screen-text {
+  color: #90ffb0; font-size: 13px; text-align: center; line-height: 1.65;
+  text-shadow: 0 0 12px rgba(0,255,100,0.35); position: relative; z-index: 1;
+}
+.screen-idle {
+  color: rgba(0,210,80,0.22); font-size: 11px; font-style: italic;
+  font-family: sans-serif; letter-spacing: 2px; position: relative; z-index: 1;
+}
+.screen-remaining {
+  font-size: 8px; letter-spacing: 1px; color: rgba(0,230,90,0.25);
+  font-family: monospace; margin-top: 8px; position: relative; z-index: 1;
+}
+
+/* Bottom panel */
+.bottom-panel { display: flex; align-items: stretch; gap: 7px; }
+
+.go-btn {
+  flex: 1; padding: 8px 5px; border-radius: 6px;
+  border: 1px solid #2a2a1a;
+  background: rgba(255,255,255,0.02);
+  color: #3a3a2a; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  font-family: sans-serif; cursor: default; text-align: center; line-height: 1.4;
+  transition: all 0.2s; user-select: none;
+}
+.go-btn.active {
+  border-color: #5a7a3a;
+  background: linear-gradient(160deg,#1e3a10,#0e2008);
+  color: #80e040; cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(120,220,60,0.15);
+}
+.go-icon { font-size: 13px; margin-bottom: 2px; }
+
+.counter {
+  background: #000; border: 1px solid #6a4a18; border-radius: 5px;
+  padding: 5px 8px; text-align: center; min-width: 52px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.counter-label { font-size: 7px; letter-spacing: 2px; color: rgba(0,230,90,0.35); font-family: monospace; text-transform: uppercase; }
+.counter-val { font-family: 'Courier New', monospace; font-size: 19px; color: #00e060; letter-spacing: 3px; line-height: 1; margin-top: 1px; text-shadow: 0 0 8px rgba(0,220,80,0.5); }
+
+.log-btn {
+  min-width: 44px; border-radius: 6px; border: 1px solid #3a2a12;
+  background: rgba(255,255,255,0.02);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  cursor: pointer; padding: 6px 3px; gap: 2px; transition: all 0.18s;
+}
+.log-btn.open { background: rgba(180,130,50,0.12); border-color: #6a4a20; }
+.log-icon { font-size: 13px; }
+.log-label { font-size: 7px; letter-spacing: 1px; text-transform: uppercase; font-family: sans-serif; color: #4a3a18; }
+.log-btn.open .log-label { color: #c8a060; }
+
+/* Lever */
+.lever-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  width: 44px; cursor: pointer; user-select: none;
+  margin-left: 3px; padding-top: 8px; flex-shrink: 0;
+}
+.lever-ball {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%,#ff7766,#bb1100,#660000);
+  border: 2px solid #cc2200;
+  box-shadow: 0 4px 16px rgba(200,0,0,0.65), inset 0 2px 4px rgba(255,160,140,0.25);
+  margin-bottom: -3px; z-index: 2; position: relative;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.lever-ball.pulled { transform: translateY(14px); transition: transform 0.14s ease-in; }
+.lever-mount {
+  width: 15px; height: 24px; flex-shrink: 0;
+  background: linear-gradient(90deg,#444,#aaa,#666);
+  border: 1px solid #999; border-radius: 3px 3px 0 0;
+}
+.lever-arm {
+  width: 9px; height: 180px;
+  background: linear-gradient(90deg,#555,#b0b0b0,#777);
+  border: 1px solid #888; border-radius: 5px;
+  transform-origin: top center;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.lever-arm.pulled { transform: rotate(26deg); transition: transform 0.14s ease-in; }
+
+/* Log panel */
+.log-panel {
+  margin-top: 20px; width: 100%; max-width: 358px;
+  background: rgba(255,255,255,0.02); border: 1px solid #3a2a10;
+  border-radius: 10px; overflow: hidden;
+}
+.log-header {
+  padding: 8px 14px; font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase; color: #7a5a30;
+  font-family: sans-serif; border-bottom: 1px solid #2a1a08;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.log-item {
+  padding: 8px 14px; font-size: 11px; color: #806040;
+  border-bottom: 1px solid #1a1008; line-height: 1.45; font-style: italic;
+}
+.log-item:last-child { border-bottom: none; }
+.log-empty {
+  padding: 14px; font-size: 10px; color: #3a2a18;
+  font-family: sans-serif; font-style: italic; text-align: center;
+}
+
+.hint {
+  margin-top: 22px; font-size: 9px; color: rgba(180,130,60,0.3);
+  letter-spacing: 3px; text-transform: uppercase; font-family: sans-serif; text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="title-eye">Arthur Aron · 1997</div>
+<div class="title-main">36 Questions to Fall in <em>Love</em></div>
+
+<div class="scene">
+  <!-- Machine -->
+  <div class="machine">
+    <div class="chrome-strip"></div>
+
+    <!-- Bulbs -->
+    <div class="bulbs" id="bulbs">
+      <div class="bulb" id="b0"></div>
+      <div class="bulb" id="b1"></div>
+      <div class="bulb" id="b2"></div>
+      <div class="bulb" id="b3"></div>
+      <div class="bulb" id="b4"></div>
+      <div class="bulb" id="b5"></div>
+      <div class="bulb" id="b6"></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" data-g="0" onclick="switchGroup(0)">Set I<div class="tab-sub">Self-Disclosure</div></div>
+      <div class="tab" data-g="1" onclick="switchGroup(1)">Set II<div class="tab-sub">Values & Fears</div></div>
+      <div class="tab" data-g="2" onclick="switchGroup(2)">Set III<div class="tab-sub">Deep Connection</div></div>
+    </div>
+
+    <!-- Screen -->
+    <div class="screen-outer">
+      <div class="screen-inner">
+        <div class="scanlines"></div>
+        <div class="screen-label" id="screenLabel">SET I · Self-Disclosure</div>
+        <div id="screenContent"><div class="screen-idle">pull the lever</div></div>
+        <div class="screen-remaining" id="screenRemaining">12 / 12 remaining</div>
+      </div>
+    </div>
+
+    <!-- Bottom panel -->
+    <div class="bottom-panel">
+      <div class="go-btn" id="goBtn" onclick="goForIt()">
+        <div class="go-icon">✓</div>
+        We'll go<br>for this
+      </div>
+      <div class="counter">
+        <div class="counter-label">pulls</div>
+        <div class="counter-val" id="counterVal">000</div>
+      </div>
+      <div class="log-btn" id="logBtn" onclick="toggleLog()">
+        <div class="log-icon">📋</div>
+        <div class="log-label">log</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lever -->
+  <div class="lever-wrap" onclick="pull()">
+    <div class="lever-ball" id="leverBall"></div>
+    <div class="lever-mount"></div>
+    <div class="lever-arm" id="leverArm"></div>
+  </div>
+</div>
+
+<!-- Log panel -->
+<div class="log-panel" id="logPanel" style="display:none">
+  <div class="log-header">
+    <span id="logCount">Questions used · 0 total</span>
+    <span style="font-size:8px;opacity:0.6">most recent first</span>
+  </div>
+  <div id="logList"><div class="log-empty">No questions confirmed yet.</div></div>
+</div>
+
+<div class="hint">Pull lever · confirm with ✓ · track your journey</div>
+
+<script>
+const GROUPS = [
+  { label:"SET I · Self-Disclosure", questions:[
+    "Given the choice of anyone in the world, whom would you want as a dinner guest?",
+    "Would you like to be famous? In what way?",
+    "Before making a telephone call, do you ever rehearse what you are going to say? Why?",
+    "What would constitute a perfect day for you?",
+    "When did you last sing to yourself? To someone else?",
+    "If you could live to 90 retaining either the mind or body of a 30-year-old for the last 60 years — which would you choose?",
+    "Do you have a secret hunch about how you will die?",
+    "Name three things you and your partner appear to have in common.",
+    "For what in your life do you feel most grateful?",
+    "If you could change anything about the way you were raised, what would it be?",
+    "Tell your partner your life story in as much detail as possible in four minutes.",
+    "If you could wake up tomorrow having gained any one quality or ability, what would it be?",
+  ]},
+  { label:"SET II · Values & Fears", questions:[
+    "If a crystal ball could tell you the truth about yourself, your life, or anything else, what would you want to know?",
+    "Is there something you've dreamed of doing for a long time? Why haven't you done it?",
+    "What is the greatest accomplishment of your life?",
+    "What do you value most in a friendship?",
+    "What is your most treasured memory?",
+    "What is your most terrible memory?",
+    "If you knew that in one year you would die suddenly, would you change anything about how you now live? Why?",
+    "What does friendship mean to you?",
+    "What roles do love and affection play in your life?",
+    "Alternate sharing something you consider a positive characteristic of your partner — 5 items each.",
+    "How close and warm is your family? Do you feel your childhood was happier than most?",
+    "How do you feel about your relationship with your mother?",
+  ]},
+  { label:"SET III · Deep Connection", questions:[
+    "Make three true 'we' statements. For instance, 'We are both in this room feeling...'",
+    "Complete this sentence: 'I wish I had someone with whom I could share...'",
+    "If you were going to become a close friend with your partner, what would be important for them to know?",
+    "Tell your partner what you like about them — be honest, saying things you might not say to a stranger.",
+    "Share with your partner an embarrassing moment in your life.",
+    "When did you last cry in front of another person? By yourself?",
+    "Tell your partner something that you like about them already.",
+    "What, if anything, is too serious to be joked about?",
+    "If you were to die this evening with no opportunity to communicate with anyone, what would you most regret not having told someone?",
+    "Your house is on fire. After saving loved ones and pets, you can save one item. What and why?",
+    "Of all the people in your family, whose death would you find most disturbing? Why?",
+    "Share a personal problem and ask your partner's advice on how they might handle it.",
+  ]},
+];
+
+// State
+let activeGroup = 0;
+let pools = GROUPS.map(g => [...g.questions]);
+let usedAll = [];
+let currentQ = null;
+let spinning = false;
+let pullCount = 0;
+let lastQ = null;
+let spinTimer = null;
+let flashTimer = null;
+let logOpen = false;
+
+const BULB_CLASS = ["on-r","on-g","on-y","on-r","on-g","on-y","on-r"];
+const bulbEls = [0,1,2,3,4,5,6].map(i => document.getElementById("b"+i));
+
+function switchGroup(g) {
+  if (g === activeGroup && !spinning) return;
+  clearTimeout(spinTimer);
+  spinning = false;
+  currentQ = null;
+  lastQ = null;
+  activeGroup = g;
+
+  document.querySelectorAll(".tab").forEach((el,i) => {
+    el.classList.toggle("active", i === g);
+  });
+  document.getElementById("screenLabel").textContent = GROUPS[g].label;
+  setScreenIdle();
+  updateRemaining();
+  updateGoBtn();
+}
+
+function setScreenIdle() {
+  document.getElementById("screenContent").innerHTML = '<div class="screen-idle">pull the lever</div>';
+}
+
+function setScreenText(txt) {
+  document.getElementById("screenContent").innerHTML = `<div class="screen-text">${txt}</div>`;
+}
+
+function updateRemaining() {
+  const total = GROUPS[activeGroup].questions.length;
+  const rem = pools[activeGroup].length;
+  document.getElementById("screenRemaining").textContent = `${rem} / ${total} remaining`;
+}
+
+function updateGoBtn() {
+  const btn = document.getElementById("goBtn");
+  if (currentQ && !spinning) {
+    btn.classList.add("active");
+  } else {
+    btn.classList.remove("active");
+  }
+}
+
+function flashLights() {
+  clearInterval(flashTimer);
+  let t = 0;
+  flashTimer = setInterval(() => {
+    bulbEls.forEach((b,i) => {
+      b.className = "bulb";
+      if (t % 2 === 0) b.classList.add(BULB_CLASS[i]);
+    });
+    t++;
+    if (t > 12) { clearInterval(flashTimer); bulbEls.forEach(b => b.className="bulb"); }
+  }, 70);
+}
+
+function pull() {
+  if (spinning) return;
+  const pool = pools[activeGroup];
+  if (pool.length === 0) {
+    setScreenText("All questions used!");
+    return;
+  }
+
+  spinning = true;
+  pullCount++;
+  document.getElementById("counterVal").textContent = String(pullCount).padStart(3,"0");
+  flashLights();
+
+  // Lever animation
+  document.getElementById("leverBall").classList.add("pulled");
+  document.getElementById("leverArm").classList.add("pulled");
+  setTimeout(() => {
+    document.getElementById("leverBall").classList.remove("pulled");
+    document.getElementById("leverArm").classList.remove("pulled");
+  }, 300);
+
+  // Pick final Q
+  let finalQ;
+  const candidates = pool.length > 1 ? pool.filter(q => q !== lastQ) : pool;
+  finalQ = candidates[Math.floor(Math.random() * candidates.length)];
+  lastQ = finalQ;
+  currentQ = finalQ;
+
+  // Reel spin through all questions as dummies
+  const all = GROUPS[activeGroup].questions;
+  const dummies = Array.from({length:7}, () => all[Math.floor(Math.random()*all.length)]);
+  let frame = 0;
+
+  function step() {
+    if (frame < dummies.length) {
+      setScreenText(dummies[frame]);
+      frame++;
+      spinTimer = setTimeout(step, frame < 5 ? 75 : 120);
+    } else {
+      setScreenText(finalQ);
+      spinning = false;
+      updateGoBtn();
+    }
+  }
+  step();
+}
+
+function goForIt() {
+  if (!currentQ || spinning) return;
+  const g = activeGroup;
+  const q = currentQ;
+
+  // Remove from pool
+  const idx = pools[g].indexOf(q);
+  if (idx !== -1) pools[g].splice(idx, 1);
+
+  // Add to log
+  usedAll.unshift({ group: GROUPS[g].label, text: q });
+
+  currentQ = null;
+  lastQ = null;
+  setScreenIdle();
+  updateRemaining();
+  updateGoBtn();
+  if (logOpen) renderLog();
+}
+
+function toggleLog() {
+  logOpen = !logOpen;
+  document.getElementById("logPanel").style.display = logOpen ? "block" : "none";
+  document.getElementById("logBtn").classList.toggle("open", logOpen);
+  if (logOpen) renderLog();
+}
+
+function renderLog() {
+  document.getElementById("logCount").textContent = `Questions used · ${usedAll.length} total`;
+  if (usedAll.length === 0) {
+    document.getElementById("logList").innerHTML = '<div class="log-empty">No questions confirmed yet.</div>';
+  } else {
+    document.getElementById("logList").innerHTML = usedAll.map(u =>
+      `<div class="log-item"><span style="font-size:8px;opacity:0.5;font-family:monospace;font-style:normal;">${u.group}</span><br>"${u.text}"</div>`
+    ).join("");
+  }
+}
+
+// Init
+updateRemaining();
+</script>
+</body>
+</html>
